@@ -142,7 +142,7 @@ class _VoiceHomeState extends State<VoiceHome> {
                 horizontal: 12.0,
               ),
               child: Text(
-                resultText = "aç google.com",
+                resultText = "ara 05558508464",
                 style: TextStyle(fontSize: 24.0),
               ),
             ),
@@ -170,6 +170,11 @@ class _VoiceHomeState extends State<VoiceHome> {
     List control = resultText.split(" ");
     if(control[0] == "aç"){
       String url = "http://" + control[1];
+      launch(url);
+      return 0;
+    }
+    if(control[0] == "ara"){
+      String url = "tel:" + control[1];
       launch(url);
       return 0;
     }
