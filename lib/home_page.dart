@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
@@ -23,6 +25,7 @@ class VoiceHome extends StatefulWidget {
 
 class _VoiceHomeState extends State<VoiceHome> {
   SpeechRecognition _speechRecognition;
+  FlutterTts flutterTts = new FlutterTts();
   bool _isAvailable = false;
   bool _isListening = false;
 
@@ -88,6 +91,10 @@ class _VoiceHomeState extends State<VoiceHome> {
                                   resultText = "";
                                 }),
                           );
+                          setState(() {
+                            resultText = "";
+                            translatedText = "";
+                          });
                   },
                 ),
                 FloatingActionButton(
@@ -135,7 +142,7 @@ class _VoiceHomeState extends State<VoiceHome> {
                 horizontal: 12.0,
               ),
               child: Text(
-                resultText = "Deneme araba o bu",
+                resultText = "aç google.com",
                 style: TextStyle(fontSize: 24.0),
               ),
             ),
@@ -160,6 +167,12 @@ class _VoiceHomeState extends State<VoiceHome> {
     String token;
 
   translate(List words) async{
+    List control = resultText.split(" ");
+    if(control[0] == "aç"){
+      String url = "http://" + control[1];
+      launch(url);
+      return 0;
+    }
 
     print(token);
     String sendToken = "Bearer " + token;
@@ -179,8 +192,9 @@ class _VoiceHomeState extends State<VoiceHome> {
       setState(() {
         translatedText = translatedText + result[0]["wordEn"] + " " ;
       });
+      //flutterTts.speak(result[0]["wordEn"]);
     }
-
+    flutterTts.speak(translatedText);
   }
 
   authorize() async{
