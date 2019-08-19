@@ -41,7 +41,6 @@ class _VoiceHomeState extends State<VoiceHome> {
     super.initState();
     initSpeechRecognizer();
   }
-
   void initSpeechRecognizer() {
     _speechRecognition = SpeechRecognition();
 
@@ -65,7 +64,6 @@ class _VoiceHomeState extends State<VoiceHome> {
           (result) => setState(() => _isAvailable = result),
         );
   }
-
   @override
   Widget build(BuildContext context) {
     authorize();
@@ -91,10 +89,7 @@ class _VoiceHomeState extends State<VoiceHome> {
                                   resultText = "";
                                 }),
                           );
-                          setState(() {
-                            resultText = "";
-                            translatedText = "";
-                          });
+                         
                   },
                 ),
                 FloatingActionButton(
@@ -142,7 +137,7 @@ class _VoiceHomeState extends State<VoiceHome> {
                 horizontal: 12.0,
               ),
               child: Text(
-                resultText = "ara 05558508464",
+                resultText,
                 style: TextStyle(fontSize: 24.0),
               ),
             ),
@@ -212,8 +207,6 @@ class _VoiceHomeState extends State<VoiceHome> {
         //print(result["token"]);
         String tok = result["token"].toString();
         token = tok;
-
-
       });
     }catch(e){
       print("error");
